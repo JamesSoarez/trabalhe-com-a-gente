@@ -4,8 +4,11 @@
 
 <main>
   <section class="search-container">
-    <input type="text" placeholder="Digite o nome do repositório...">
-    <button>Buscar</button>
+    <input type="text" 
+    placeholder="Digite o nome do repositório..."
+    [(ngModel)]="searchTerm">
+
+    <button (click)="treatSearch()">Buscar</button>
   </section>
 
   <section class="results-container">
