@@ -12,6 +12,24 @@
   </section>
 
   <section class="results-container">
-    <p>Aguardando a busca...</p>
+    <ul *ngIf="repositories.length > 0">
+      <li *ngFor="let repo of repositories">
+        <h3>
+          <a [href]="repo.html_url" target="_blank">{{ repo.full_name }}</a>
+        </h3>
+
+        <p>{{ repo.description }}</p>
+
+        <div>
+          <span>⭐ Estrelas: {{ repo.stargazers_count }}</span>
+          <span>👁️ Observadores: {{ repo.watchers_count }}</span>
+          <span>❗Issues: {{ repo.open_issues_count }}</span>
+        </div>
+      </li>
+    </ul>
+
+    <p *ngIf="repositories.length === 0">
+      Aguardando a busca... ou nenhum resultado encontrado.
+    </p>
   </section>
 </main>
