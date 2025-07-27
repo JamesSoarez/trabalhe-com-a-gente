@@ -9,11 +9,10 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let GithubServiceSpy: jasmine.SpyObj<GithubService>;
+  let githubServiceSpy: jasmine.SpyObj<GithubService>;
 
   beforeEach(async () => {
-
-    const spy = jasmine.createSpyObj("GithubService", ["searchRepositories"]);
+    const spy = jasmine.createSpyObj('GithubService', ['searchRepositories']);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -28,18 +27,17 @@ describe('AppComponent', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-
-    GithubServiceSpy = TestBed.inject(GithubService) as jasmine.SpyObj<GithubService>;
+    githubServiceSpy = TestBed.inject(GithubService) as jasmine.SpyObj<GithubService>;
   });
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should call githubService.searchRepositories when search button is clicked`, () => {
+  it('should call githubService.searchRepositories when search button is clicked', () => {
     const testSearchTerm = "angular";
     
-    GithubServiceSpy.searchRepositories.and.returnValue(of({ items: [], total_count: 0 }));
+    githubServiceSpy.searchRepositories.and.returnValue(of({ items: [], total_count: 0 }));
 
     component.searchTerm = testSearchTerm;
     fixture.detectChanges();
@@ -47,7 +45,27 @@ describe('AppComponent', () => {
     const searchButton = fixture.nativeElement.querySelector("button");
     searchButton.click();
 
-    expect(GithubServiceSpy.searchRepositories).toHaveBeenCalledWith(testSearchTerm, 1);
+    expect(githubServiceSpy.searchRepositories).toHaveBeenCalledWith(testSearchTerm, 1);
+  });
+
+  it('should render the list of repositories when search is successful', () => {
+    const dummyResponse = {
+      total_count: 2,
+      items: [
+        { full_name: 'angular/angular', description: 'One framework.', html_url: '', stargazers_count: 0, watchers_count: 0, open_issues_count: 0 },
+        { full_name: 'facebook/react', description: 'A declarative library.', html_url: '', stargazers_count: 0, watchers_count: 0, open_issues_count: 0 }
+      ]
+    };
+    githubServiceSpy.searchRepositories.and.returnValue(of(dummyResponse));
+    
+    const searchButton = fixture.nativeElement.querySelector('button');
+    searchButton.click();
+    fixture.detectChanges();
+
+    const repoListItems = fixture.nativeElement.querySelectorAll('li');
+    
+    expect(repoListItems.length).toBe(2);
+    expect(repoListItems[0].textContent).toContain('angular/angular');
   });
 
 });
