@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignorar arquivo com chaves de API
+/src/app/api-keys.ts
