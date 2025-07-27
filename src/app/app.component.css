@@ -1,0 +1,61 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header h1 {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  flex-grow: 1;
+}
+
+.repo-card {
+  margin-bottom: 1.5rem;
+}
+
+.repo-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.repo-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Aqui centraliza o circulo de carregamento e as mensagens */
+.spinner-container, .message, .error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.error-message p {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
