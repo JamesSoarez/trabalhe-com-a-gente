@@ -13,13 +13,17 @@ export class GithubService {
   //HttpClient passado ao Construtor
   constructor(private http: HttpClient) { }
 
-  //Um método para realizar busca
-  public searchRepositories(query: string): Observable<any> {
+  //Um método para realizar busca da página
+  public searchRepositories(query: string, page: number = 1): Observable<any> {
+
+    //"page" como parâmetro da requisição
     const params = {
-      q: query
+      q: query,
+      page: page.toString(),
+      per_page: "30" //quantidade de itens por página 
     };
 
     //fazer a chamada e retornar o Observable
-    return this.http.get(this.API_URL, { params});
+    return this.http.get(this.API_URL, { params });
   }
 }
