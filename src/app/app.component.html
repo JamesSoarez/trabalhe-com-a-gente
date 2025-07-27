@@ -31,5 +31,11 @@
     <p *ngIf="repositories.length === 0">
       Aguardando a busca... ou nenhum resultado encontrado.
     </p>
+
+    <div class="pagination-container" *ngIf="repositories.length > 0">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount">Próxima</button>
+    </div>
   </section>
 </main>
