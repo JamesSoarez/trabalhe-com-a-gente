@@ -63,13 +63,19 @@
     </section>
 
     <nav class="pagination-container" *ngIf="repositories.length > 0 && !isLoading">
-      <button mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-        <ng-container *ngFor="let page of visiblePages">
-          <span *ngIf="isString(page)" class="page-gap">...</span>
-          <span *ngIf="isNumber(page) && page === currentPage" class="page-item current-page">{{ page }}</span>
-          <a *ngIf="isNumber(page) && page !== currentPage" (click)="goToPage(page)" class="page-item">{{ page }}</a>
-        </ng-container>
-      <button mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">Próxima</button>
+      <button mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">
+        <mat-icon>chevron_left</mat-icon>
+        Previous
+      </button>
+      <ng-container *ngFor="let page of visiblePages">
+        <span *ngIf="isString(page)" class="page-gap">...</span>
+        <span *ngIf="isNumber(page) && page === currentPage" class="page-item current-page">{{ page }}</span>
+        <a *ngIf="isNumber(page) && page !== currentPage" (click)="goToPage(page)" class="page-item">{{ page }}</a>
+      </ng-container>
+      <button mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">
+        Next
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </nav>
     
   </main>

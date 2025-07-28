@@ -62,6 +62,7 @@ export class AppComponent {
           console.error("ERRO AO FAZER A BUSCA:", err);
           this.repositories = [];
           this.totalCount = 0;
+          this.visiblePages = []; //em caso de erro, as paginas são limpadas
           this.errorMessage = "Erro ao buscar dados. Você pode ter atingido o limite de requisições. Tente novamente em um minuto.";
           this.isLoading = false; //se houver erro, também esconde o circulo de carregamento (spinner)
         }
@@ -89,7 +90,6 @@ export class AppComponent {
   private updateVisiblePages(): void {
     const totalPages = Math.ceil(this.totalCount / 30);
     const maxPages = Math.min(totalPages, 34);
-    const currentPage = this.currentPage;
 
     if(maxPages <= 7) {
       this.visiblePages = Array.from({ length: maxPages }, (_, i) => i + 1);
@@ -97,25 +97,25 @@ export class AppComponent {
     }
 
     const pages: (number | string) [] = [];
-    pages.push(1);
 
-    if(currentPage > 4){
-      pages.push("...");
+    if(this.currentPage > 4){
+      pages.push(1, "...");
+    } else {
+      for(let i = 1; i < this.currentPage; i++) {
+        pages.push(i);
+      }
     }
 
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(maxPages - 1, currentPage + 1);
-
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = this.currentPage; i <= Math.min(this.currentPage + 2, maxPages); i++) {
       pages.push(i);
     }
 
-    if(currentPage < maxPages - 3){
+    if(this.currentPage < maxPages - 3){
       pages.push("...");
+      pages.push(maxPages);
     }
 
-    pages.push(maxPages);
-    this.visiblePages = pages;
+    this.visiblePages = pages.filter((page, index) => pages.indexOf(page) === index);
   }
 
   isNumber(value: any): value is number {
