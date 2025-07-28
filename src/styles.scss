@@ -48,6 +48,11 @@ body.dark-theme.mat-app-background {
   color: #ffffff !important;
 }
 
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right: none !important;
+  border-left: none !important;
+}
+
 /* Estilo do Botão Buscar */
 .mat-mdc-raised-button.mat-primary {
   height: 56px;
@@ -57,5 +62,5 @@ body.dark-theme.mat-app-background {
 }
 
 .mat-mdc-raised-button.mat-primary:hover {
-  --mdc-protected-button-container-color: #1f6feb;
+  --mdc-protected-button-container-color: #1b61ca;
 }
