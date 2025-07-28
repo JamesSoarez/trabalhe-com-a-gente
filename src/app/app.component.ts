@@ -89,33 +89,45 @@ export class AppComponent {
   //lógica da paginação
   private updateVisiblePages(): void {
     const totalPages = Math.ceil(this.totalCount / 30);
-    const maxPages = Math.min(totalPages, 34);
+    const maxPages = Math.min(totalPages, 34); //a API limita os resultados, permitindo apenas 34 páginas 
+    const currentPage = this.currentPage;
+    const siblingCount = 1; // quantidade de números que mostra ao lado do atual
 
-    if(maxPages <= 7) {
+    const totalPageSlots = 7; //quantidade de espaços para os números de páginas da navegação
+
+    if (maxPages <= totalPageSlots) {
       this.visiblePages = Array.from({ length: maxPages }, (_, i) => i + 1);
       return;
     }
 
-    const pages: (number | string) [] = [];
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const rightSiblingIndex = Math.min(currentPage + siblingCount, maxPages);
 
-    if(this.currentPage > 4){
-      pages.push(1, "...");
-    } else {
-      for(let i = 1; i < this.currentPage; i++) {
-        pages.push(i);
+    const shouldShowLeftDots = leftSiblingIndex > 2;
+    const shouldShowRightDots = rightSiblingIndex < maxPages - 2;
+
+    if (!shouldShowLeftDots && shouldShowRightDots) {
+      const leftItemCount = 3 + 2 * siblingCount;
+      const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
+      this.visiblePages = [...leftRange, '...', maxPages];
+      return;
+    }
+
+    if (shouldShowLeftDots && !shouldShowRightDots) {
+      const rightItemCount = 3 + 2 * siblingCount;
+      const rightRange = Array.from({ length: rightItemCount }, (_, i) => maxPages - rightItemCount + 1 + i);
+      this.visiblePages = [1, '...', ...rightRange];
+      return;
+    }
+
+    if (shouldShowLeftDots && shouldShowRightDots) {
+      let middleRange = [];
+      for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+        middleRange.push(i);
       }
+      this.visiblePages = [1, '...', ...middleRange, '...', maxPages];
+      return;
     }
-
-    for (let i = this.currentPage; i <= Math.min(this.currentPage + 2, maxPages); i++) {
-      pages.push(i);
-    }
-
-    if(this.currentPage < maxPages - 3){
-      pages.push("...");
-      pages.push(maxPages);
-    }
-
-    this.visiblePages = pages.filter((page, index) => pages.indexOf(page) === index);
   }
 
   isNumber(value: any): value is number {
@@ -125,5 +137,4 @@ export class AppComponent {
   isString(value: any): value is string {
     return typeof value === "string";
   }
-
 }
