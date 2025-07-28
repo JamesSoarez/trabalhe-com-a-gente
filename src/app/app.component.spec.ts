@@ -5,6 +5,8 @@ import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { GithubService } from './services/github.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -21,7 +23,8 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: GithubService, useValue: spy },
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideAnimationsAsync() 
       ]
     }).compileComponents();
 
@@ -52,17 +55,34 @@ describe('AppComponent', () => {
     const dummyResponse = {
       total_count: 2,
       items: [
-        { full_name: 'angular/angular', description: 'One framework.', html_url: '', stargazers_count: 0, watchers_count: 0, open_issues_count: 0 },
-        { full_name: 'facebook/react', description: 'A declarative library.', html_url: '', stargazers_count: 0, watchers_count: 0, open_issues_count: 0 }
+        { 
+          full_name: 'angular/angular', 
+          description: 'One framework.', 
+          html_url: '', 
+          stargazers_count: 0, 
+          watchers_count: 0, 
+          open_issues_count: 0,
+          owner: { avatar_url: "" }
+        },
+        { 
+          full_name: 'facebook/react', 
+          description: 'A declarative library.', 
+          html_url: '', 
+          stargazers_count: 0, 
+          watchers_count: 0, 
+          open_issues_count: 0, 
+          owner: { avatar_url: "" }
+        }
       ]
     };
     githubServiceSpy.searchRepositories.and.returnValue(of(dummyResponse));
-    
-    const searchButton = fixture.nativeElement.querySelector('button');
-    searchButton.click();
-    fixture.detectChanges();
 
-    const repoListItems = fixture.nativeElement.querySelectorAll('li');
+    component.searchTerm = "angular";
+
+    component.treatSearch();
+    fixture.detectChanges();
+    
+    const repoListItems = fixture.nativeElement.querySelectorAll("mat-card");
     
     expect(repoListItems.length).toBe(2);
     expect(repoListItems[0].textContent).toContain('angular/angular');
