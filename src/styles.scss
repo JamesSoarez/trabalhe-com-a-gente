@@ -1,3 +1,4 @@
+/* Estilos base*/
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -6,22 +7,10 @@ body.dark-theme.mat-app-background {
   color: #ffffff;
 }
 
-header h1 {
-  font-size: 2rem;
-}
-
-/* layout geral da página */
-.container {
-  max-width: 1000px;
-  margin: 2rem auto; 
-  padding: 1rem 2rem; 
-}
-
-/* Cards */
+/* Estilo dos Cards */
 .mat-mdc-card {
   background-color: #1e1e1e !important;
   color: #ffffff !important;
-  margin-bottom: 1rem;
   border: 1px solid #303030 !important;
   border-radius: 6px !important;
 }
@@ -29,11 +18,6 @@ header h1 {
 .mat-mdc-card-header {
   padding-top: 1rem !important;
   border-bottom: 1px solid #303030 !important;
-}
-
-.mat-mdc-card-title {
-  font-size: 1.2rem !important;
-  margin-bottom: 0.2rem !important;
 }
 
 .mat-mdc-card-title a {
@@ -50,35 +34,28 @@ header h1 {
   font-size: 0.9rem !important;
 }
 
-/* Campo de busca */
+/* Estilo dos Form Fields */
 .mat-mdc-form-field .mdc-notched-outline > * {
   border-color: rgba(255, 255, 255, 0.7) !important;
 }
+
 .mat-mdc-form-field .mat-mdc-floating-label {
   color: rgba(255, 255, 255, 0.7) !important;
 }
+
 .mat-mdc-input-element {
+  caret-color: #ffffff !important; 
   color: #ffffff !important;
 }
 
+/* Estilo do Botão Buscar */
 .mat-mdc-raised-button.mat-primary {
-  --mdc-protected-button-container-color: #1f6feb
-;
+  height: 56px;
+  --mdc-protected-button-container-color: #1f6feb;
   --mdc-protected-button-label-text-color: #ffffff;
   --mdc-protected-button-container-shape: 6px;
 }
 
 .mat-mdc-raised-button.mat-primary:hover {
-  --mdc-protected-button-container-color: #1f6feb
-;
-}
-
-.pagination-container .mat-mdc-stroked-button {
-  --mdc-outlined-button-label-text-color: rgba(255, 255, 255, 0.8);
-  --mdc-outlined-button-outline-color: rgba(255, 255, 255, 0.5);
-  --mdc-outlined-button-container-shape: 6px;
-}
-
-.pagination-container .mat-mdc-stroked-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  --mdc-protected-button-container-color: #1f6feb;
 }
