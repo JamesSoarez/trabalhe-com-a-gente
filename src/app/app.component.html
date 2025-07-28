@@ -34,34 +34,43 @@
 
       <mat-card *ngFor="let repo of repositories" class="repo-card">
         <mat-card-header>
+          <div mat-card-avatar [style.backgroundImage]="'url(' + repo.owner.avatar_url + ')'" class="repo-avatar"></div>
+          
           <mat-card-title>
             <a [href]="repo.html_url" target="_blank">{{ repo.full_name }}</a>
           </mat-card-title>
-          <mat-card-subtitle class="repo-meta">
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ repo.description }}</p>
+          <div class="repo-meta">
             <span>
-              <mat-icon>star_rate</mat-icon>
-              {{ repo.stargazers_count }}
+              <a [href]="'https://github.com/' + repo.full_name + '/stargazers'" target="_blank" class="meta-link">
+                <mat-icon>star_rate</mat-icon>
+                {{ repo.stargazers_count }}
+              </a>
+            </span>
+            <span>
+              <mat-icon>error_outline</mat-icon>
+              {{ repo.open_issues_count }}
             </span>
             <span>
               <mat-icon>visibility</mat-icon>
               {{ repo.watchers_count }}
             </span>
-             <span>
-              <mat-icon>error_outline</mat-icon>
-              {{ repo.open_issues_count }}
-            </span>
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ repo.description }}</p>
+          </div>
         </mat-card-content>
       </mat-card>
     </section>
 
-    <section class="pagination-container" *ngIf="repositories.length > 0 && !isLoading">
+    <nav class="pagination-container" *ngIf="repositories.length > 0 && !isLoading">
       <button mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-      <span>Página {{ currentPage }}</span>
-      <button mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount">Próxima</button>
-    </section>
+        <ng-container *ngFor="let page of visiblePages">
+          <span *ngIf="isString(page)" class="page-gap">...</span>
+          <span *ngIf="isNumber(page) && page === currentPage" class="page-item current-page">{{ page }}</span>
+          <a *ngIf="isNumber(page) && page !== currentPage" (click)="goToPage(page)" class="page-item">{{ page }}</a>
+        </ng-container>
+      <button mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">Próxima</button>
+    </nav>
+    
   </main>
 </div>

@@ -27,16 +27,18 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   searchTerm: string = '';
   repositories: any[] = [];
   currentPage: number = 1;
   totalCount: number = 0;
   errorMessage: string | null = null;
-  
   isLoading: boolean = false; // aqui será controlado o circulo de carregamento (spinner)
 
   constructor(private githubService: GithubService) {}
+
+  visiblePages: (number | string) [] = []; // lista paginas para serem exibidas
 
   treatSearch(): void {
     if (!this.searchTerm.trim()) return; // se o campo estiver vazio, não realizará busca
@@ -53,6 +55,8 @@ export class AppComponent {
           this.repositories = response.items;
           this.totalCount = response.total_count;
           this.isLoading = false; //esconde o circulo de carregamento (spinner)
+
+          this.updateVisiblePages();
         },
         error: (err) => {
           console.error("ERRO AO FAZER A BUSCA:", err);
@@ -73,4 +77,53 @@ export class AppComponent {
     this.currentPage--;
     this.executeSearch();
   }
+
+  goToPage(page: number | string): void {
+    if (typeof page === "number" && page !== this.currentPage) {
+      this.currentPage = page;
+      this.executeSearch();
+    }
+  }
+
+  //lógica da paginação
+  private updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.totalCount / 30);
+    const maxPages = Math.min(totalPages, 34);
+    const currentPage = this.currentPage;
+
+    if(maxPages <= 7) {
+      this.visiblePages = Array.from({ length: maxPages }, (_, i) => i + 1);
+      return;
+    }
+
+    const pages: (number | string) [] = [];
+    pages.push(1);
+
+    if(currentPage > 4){
+      pages.push("...");
+    }
+
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(maxPages - 1, currentPage + 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    if(currentPage < maxPages - 3){
+      pages.push("...");
+    }
+
+    pages.push(maxPages);
+    this.visiblePages = pages;
+  }
+
+  isNumber(value: any): value is number {
+    return typeof value === "number";
+  }
+
+  isString(value: any): value is string {
+    return typeof value === "string";
+  }
+
 }

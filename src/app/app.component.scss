@@ -1,0 +1,117 @@
+header h1 {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  flex-grow: 1;
+}
+
+.repo-card {
+  margin-bottom: 1.5rem;
+}
+
+.repo-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.repo-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.spinner-container, .message, .error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.error-message p {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.meta-link {
+  color: inherit; 
+  text-decoration: none; 
+  display: flex;
+  align-items: center;
+}
+
+.meta-link:hover {
+  color: #58a6ff; 
+}
+
+.repo-avatar {
+  background-size: cover; 
+  background-position: center;
+  width: 24px;  
+  height: 24px;
+  border-radius: 4px;
+}
+
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+}
+
+.page-item, .page-gap {
+  padding: 0.5rem 0.75rem;
+  min-width: 32px;
+  text-align: center;
+  border-radius: 6px;
+  color: #58a6ff;
+  line-height: 1.25;
+}
+
+.page-item {
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba(88, 166, 255, 0.15);
+  }
+}
+
+.current-page {
+  background-color: #0969da;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: default;
+}
+
+.page-gap {
+  color: rgba(255, 255, 255, 0.5);
+  cursor: default;
+}
