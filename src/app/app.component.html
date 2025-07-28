@@ -7,6 +7,9 @@
     <section class="search-container">
       <mat-form-field appearance="outline" class="search-input">
         <mat-label>Buscar repositório</mat-label>
+
+        <mat-icon matPrefix>search</mat-icon>
+
         <input matInput 
                placeholder="Ex: angular" 
                [(ngModel)]="searchTerm" 
@@ -14,7 +17,6 @@
       </mat-form-field>
 
       <button mat-raised-button color="primary" (click)="treatSearch()" [disabled]="!searchTerm.trim()">
-        <mat-icon>search</mat-icon>
         Buscar
       </button>
     </section>
@@ -63,7 +65,7 @@
     </section>
 
     <nav class="pagination-container" *ngIf="repositories.length > 0 && !isLoading">
-      <button mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">
+      <button class="pagination-button previous-button" mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">
         <mat-icon>chevron_left</mat-icon>
         Previous
       </button>
@@ -72,7 +74,7 @@
         <span *ngIf="isNumber(page) && page === currentPage" class="page-item current-page">{{ page }}</span>
         <a *ngIf="isNumber(page) && page !== currentPage" (click)="goToPage(page)" class="page-item">{{ page }}</a>
       </ng-container>
-      <button mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">
+      <button class="pagination-button next-button" mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">
         Next
         <mat-icon>chevron_right</mat-icon>
       </button>
