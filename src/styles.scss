@@ -1,0 +1,72 @@
+/* Estilos base*/
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body.dark-theme.mat-app-background {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Estilo dos Cards */
+.mat-mdc-card {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  border: 1px solid #303030 !important;
+  border-radius: 6px !important;
+}
+
+.mat-mdc-card-header {
+  padding-top: 1rem !important;
+  border-bottom: 1px solid #303030 !important;
+}
+
+.mat-mdc-card-title a {
+  color: #58a6ff !important;
+  text-decoration: none !important;
+}
+
+.mat-mdc-card-title a:hover {
+  text-decoration: underline !important;
+}
+
+.mat-mdc-card-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.9rem !important;
+}
+
+/* Estilo dos Form Fields */
+.mat-mdc-form-field .mdc-notched-outline > * {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-mdc-input-element {
+  caret-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+/* Estilo do Botão Buscar */
+.mat-mdc-raised-button.mat-primary {
+  height: 56px;
+  --mdc-protected-button-container-color: #1f6feb;
+  --mdc-protected-button-label-text-color: #ffffff;
+  --mdc-protected-button-container-shape: 6px;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  --mdc-protected-button-container-color: #1b61ca;
+}
