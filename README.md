@@ -43,8 +43,8 @@ Siga as instruções abaixo para configurar e rodar o projeto localmente.
 1.  **Clone o repositório:**
 
     ```sh
-    git clone [URL_DO_SEU_FORK_SERA_INSERIDA_AQUI]
-    cd [nome-da-pasta]
+    git clone https://github.com/JamesSoarez/trabalhe-com-a-gente
+    cd trabalhe-com-a-gente
     ```
 
 2.  **Instale as dependências:**
