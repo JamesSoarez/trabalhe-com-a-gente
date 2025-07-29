@@ -1,6 +1,12 @@
 /* Estilos base*/
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 body.dark-theme.mat-app-background {
   background-color: #121212;
@@ -44,7 +50,7 @@ body.dark-theme.mat-app-background {
 }
 
 .mat-mdc-input-element {
-  caret-color: #ffffff !important; 
+  caret-color: #ffffff !important;
   color: #ffffff !important;
 }
 

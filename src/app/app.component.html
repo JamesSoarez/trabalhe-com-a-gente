@@ -10,10 +10,7 @@
 
         <mat-icon matPrefix>search</mat-icon>
 
-        <input matInput 
-               placeholder="Ex: angular" 
-               [(ngModel)]="searchTerm" 
-               (keyup.enter)="treatSearch()">
+        <input matInput placeholder="Ex: angular" [(ngModel)]="searchTerm" (keyup.enter)="treatSearch()">
       </mat-form-field>
 
       <button mat-raised-button color="primary" (click)="treatSearch()" [disabled]="!searchTerm.trim()">
@@ -28,7 +25,7 @@
     <div class="error-message" *ngIf="errorMessage && !isLoading">
       <p>{{ errorMessage }}</p>
     </div>
-    
+
     <section class="results-container" *ngIf="!isLoading && !errorMessage">
       <p class="message" *ngIf="repositories.length === 0">
         Nenhum repositório para exibir. Tente fazer uma busca!
@@ -37,27 +34,44 @@
       <mat-card *ngFor="let repo of repositories" class="repo-card">
         <mat-card-header>
           <div mat-card-avatar [style.backgroundImage]="'url(' + repo.owner.avatar_url + ')'" class="repo-avatar"></div>
-          
+
           <mat-card-title>
             <a [href]="repo.html_url" target="_blank">{{ repo.full_name }}</a>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>{{ repo.description }}</p>
+
+          <div class="repo-topics" *ngIf="repo.topics?.length > 0">
+            <a *ngFor="let topic of repo.topics" [href]="'https://github.com/topics/' + topic" target="_blank"
+              class="topic-tag">{{ topic }}</a>
+          </div>
+
           <div class="repo-meta">
+            <span *ngIf="repo.language">
+              <span class="language-dot" [style.background-color]="getLanguageColor(repo.language)"></span>
+              {{ repo.language }}
+            </span>
             <span>
               <a [href]="'https://github.com/' + repo.full_name + '/stargazers'" target="_blank" class="meta-link">
-                <mat-icon>star_rate</mat-icon>
-                {{ repo.stargazers_count }}
+                <mat-icon>star_border</mat-icon>
+                {{ repo.stargazers_count | numberAbbreviator }}
               </a>
             </span>
             <span>
-              <mat-icon>error_outline</mat-icon>
-              {{ repo.open_issues_count }}
+              <a [href]="'https://github.com/' + repo.full_name + '/issues'" target="_blank" class="meta-link">
+                <mat-icon>error_outline</mat-icon>
+                {{ repo.open_issues_count | numberAbbreviator}}
+              </a>
             </span>
             <span>
-              <mat-icon>visibility</mat-icon>
-              {{ repo.watchers_count }}
+              <a [href]="'https://github.com/' + repo.full_name + '/watchers'" target="_blank" class="meta-link">
+                <mat-icon>visibility</mat-icon>
+                {{ repo.watchers_count | numberAbbreviator}}
+              </a>
+            </span>
+            <span>
+              Updated on {{ repo.updated_at | date:"dd MMM yyyy" }}
             </span>
           </div>
         </mat-card-content>
@@ -65,20 +79,22 @@
     </section>
 
     <nav class="pagination-container" *ngIf="repositories.length > 0 && !isLoading">
-      <button class="pagination-button previous-button" mat-stroked-button (click)="previousPage()" [disabled]="currentPage === 1">
+      <button class="pagination-button previous-button" mat-stroked-button (click)="previousPage()"
+        [disabled]="currentPage === 1">
         <mat-icon>chevron_left</mat-icon>
-        Previous
+        Anterior
       </button>
       <ng-container *ngFor="let page of visiblePages">
         <span *ngIf="isString(page)" class="page-gap">...</span>
         <span *ngIf="isNumber(page) && page === currentPage" class="page-item current-page">{{ page }}</span>
         <a *ngIf="isNumber(page) && page !== currentPage" (click)="goToPage(page)" class="page-item">{{ page }}</a>
       </ng-container>
-      <button class="pagination-button next-button" mat-stroked-button (click)="nextPage()" [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">
-        Next
+      <button class="pagination-button next-button" mat-stroked-button (click)="nextPage()"
+        [disabled]="currentPage * 30 >= totalCount || currentPage >= 34">
+        Próxima
         <mat-icon>chevron_right</mat-icon>
       </button>
     </nav>
-    
+
   </main>
 </div>
